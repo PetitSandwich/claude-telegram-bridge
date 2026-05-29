@@ -8,9 +8,13 @@ Type=simple
 # Adjust user and paths to your setup
 User=root
 WorkingDirectory=/opt/claude-bridge
+# Make the `claude` CLI and its login session reachable from systemd's minimal env.
+# Adjust /root if the service runs as a different User.
+Environment=HOME=/root
+Environment=PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # Load secrets/config from an env file (copy from .env.example)
 EnvironmentFile=/opt/claude-bridge/.env
-ExecStart=/usr/bin/python3 /opt/claude-bridge/bridge.py
+ExecStart=/opt/claude-bridge/venv/bin/python /opt/claude-bridge/bridge.py
 Restart=on-failure
 RestartSec=5
 
