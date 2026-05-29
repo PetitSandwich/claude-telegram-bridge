@@ -27,9 +27,14 @@ from telegram.ext import (
     ContextTypes,
 )
 
-from faster_whisper import WhisperModel
+# Voice transcription is optional. If faster-whisper isn't installed, the bridge
+# still runs for text; voice messages just get a "disabled" reply.
+try:
+    from faster_whisper import WhisperModel
 
-WHISPER_MODEL = WhisperModel("base", device="cpu", compute_type="int8")
+    WHISPER_MODEL = WhisperModel("base", device="cpu", compute_type="int8")
+except ImportError:
+    WHISPER_MODEL = None
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
