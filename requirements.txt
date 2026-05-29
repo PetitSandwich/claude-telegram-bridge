@@ -1,0 +1,2 @@
+python-telegram-bot>=21
+faster-whisper>=1.0

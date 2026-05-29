@@ -1,0 +1,18 @@
+[Unit]
+Description=Telegram <-> Claude Code bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Adjust user and paths to your setup
+User=root
+WorkingDirectory=/opt/claude-bridge
+# Load secrets/config from an env file (copy from .env.example)
+EnvironmentFile=/opt/claude-bridge/.env
+ExecStart=/usr/bin/python3 /opt/claude-bridge/bridge.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
